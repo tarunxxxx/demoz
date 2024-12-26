@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Directory</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+        header {
+            background-color: black;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .site-card {
+            position: relative;
+            padding: 1.5rem;
+            border-bottom: 1px solid #ddd;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+        .site-card:hover {
+            background-color: #f7f7f7;
+        }
+        .site-card h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+        .site-card p {
+            margin: 0.25rem 0;
+            font-size: 1.125rem;
+            color: #666;
+        }
+        .site-card a {
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        .site-card a:hover {
+            text-decoration: underline;
+        }
+        .dropdown {
+            margin-top: 1rem;
+        }
+        .dropdown label {
+            cursor: pointer;
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+        .dropdown label:hover {
+            background-color: #555;
+        }
+        .dropdown-content {
+            display: none;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: all 0.3s ease;
+        }
+        .dropdown input {
+            display: none;
+        }
+        .dropdown input:checked ~ .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: scaleY(1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Survey Site Directory
+    </header>
+    <div class="container" id="site-list">
+        <!-- Content will be populated dynamically -->
+    </div>
+
+    <script>
+        const data = {
+  "sites": [
+    {
+      "name": "Survey Junkie",
+      "url": "https://www.surveyjunkie.com",
+      "registrationRequirements": "18+, US residents, email verification",
+      "paymentMethods": "PayPal, Amazon Gift Cards, Visa Prepaid",
+      "minimumPayout": "$5.00, $10.00",
+      "averagePayPerSurvey": "$0.50 - $3.00, $1 - $5",
+      "surveyFrequency": "Daily, Weekly, Several times a week",
+      "referralProgram": "Earn 10% of referrals’ earnings, $5 bonus per referral",
+      "specialFeatures": "Mobile app available, daily polls, bonus points for completing profiles",
+      "additionalNotes": "Focuses on market research surveys, offers product testing opportunities"
+    },
+    {
+      "name": "Prolific",
+      "url": "https://www.prolific.co",
+      "registrationRequirements": "18+, Global access, email verification",
+      "paymentMethods": "PayPal",
+      "minimumPayout": "$6.50",
+      "averagePayPerSurvey": "$1.00 - $10.00",
+      "surveyFrequency": "Several times a week",
+      "referralProgram": "No referral bonuses",
+      "specialFeatures": "Academic research focus, high-paying surveys",
+      "additionalNotes": "Popular among university researchers"
+    },
+    {
+      "name": "Swagbucks",
+      "url": "https://www.swagbucks.com",
+      "registrationRequirements": "13+, Global access, email verification",
+      "paymentMethods": "PayPal, Amazon Gift Cards, other retailer gift cards",
+      "minimumPayout": "$3.00",
+      "averagePayPerSurvey": "$0.10 - $2.00",
+      "surveyFrequency": "Daily",
+      "referralProgram": "Earn 10% of referrals’ earnings",
+      "specialFeatures": "Earn points from shopping, games, and watching videos",
+      "additionalNotes": "Also offers cashback and rewards"
+    },
+    {
+      "name": "Ipsos iSay",
+      "url": "https://www.ipsosisay.com",
+      "registrationRequirements": "18+, Global access, email verification",
+      "paymentMethods": "PayPal, Gift Cards, Donations",
+      "minimumPayout": "$10.00",
+      "averagePayPerSurvey": "$0.50 - $2.50",
+      "surveyFrequency": "Weekly",
+      "referralProgram": "Earn points for referrals",
+      "specialFeatures": "Loyalty rewards, frequent surveys",
+      "additionalNotes": "Trusted platform with good variety of surveys"
+    },
+    {
+      "name": "MyPoints",
+      "url": "https://www.mypoints.com",
+      "registrationRequirements": "18+, US/Canada residents, email verification",
+      "paymentMethods": "PayPal, Gift Cards, Travel Miles",
+      "minimumPayout": "$5.00",
+      "averagePayPerSurvey": "$0.50 - $2.00",
+      "surveyFrequency": "Daily",
+      "referralProgram": "Earn up to 25% of referrals’ earnings",
+      "specialFeatures": "Cashback shopping, paid offers",
+      "additionalNotes": "Signup bonus available"
+    },
+    {
+      "name": "Mobrog",
+      "url": "https://www.mobrog.com",
+      "registrationRequirements": "18+, Global access, email verification",
+      "paymentMethods": "PayPal, Skrill",
+      "minimumPayout": "$6.25",
+      "averagePayPerSurvey": "$0.50 - $3.00",
+      "surveyFrequency": "Several times a week",
+      "referralProgram": "Earn $1 per referral",
+      "specialFeatures": "Quick surveys, international focus",
+      "additionalNotes": "Low payout threshold"
+    },
+    {
+      "name": "Harris Poll Online",
+      "url": "https://www.harrispollonline.com",
+      "registrationRequirements": "13+, US residents, email verification",
+      "paymentMethods": "Gift Cards, Sweepstakes entries",
+      "minimumPayout": "Varies by reward",
+      "averagePayPerSurvey": "$1.00 - $2.00",
+      "surveyFrequency": "Weekly",
+      "referralProgram": "No referral program",
+      "specialFeatures": "Influences public policy decisions",
+      "additionalNotes": "Points can be redeemed for various prizes"
+    },
+    {
+      "name": "OneOpinion",
+      "url": "https://www.oneopinion.com",
+      "registrationRequirements": "13+, US/UK residents, email verification",
+      "paymentMethods": "PayPal, Visa Prepaid Cards, Gift Cards",
+      "minimumPayout": "$25.00",
+      "averagePayPerSurvey": "$1.00 - $5.00",
+      "surveyFrequency": "Daily",
+      "referralProgram": "No referral program",
+      "specialFeatures": "High-paying surveys, user-friendly platform",
+      "additionalNotes": "Focuses on consumer research"
+    },
+    {
+      "name": "Qmee",
+      "url": "https://www.qmee.com",
+      "registrationRequirements": "18+, Global access, email verification",
+      "paymentMethods": "PayPal, Gift Cards",
+      "minimumPayout": "No minimum payout",
+      "averagePayPerSurvey": "$0.50 - $1.00",
+      "surveyFrequency": "Daily",
+      "referralProgram": "Earn 10% of referrals’ earnings",
+      "specialFeatures": "Instant payouts, paid searches",
+      "additionalNotes": "Also offers cashback for shopping"
+    },
+    {
+      "name": "Panel Place",
+      "url": "https://www.panelplace.com",
+      "registrationRequirements": "18+, Global access, email verification",
+      "paymentMethods": "Varies by survey provider",
+      "minimumPayout": "Varies by survey provider",
+      "averagePayPerSurvey": "Varies by survey provider",
+      "surveyFrequency": "Varies by survey provider",
+      "referralProgram": "No referral program",
+      "specialFeatures": "Aggregates multiple survey providers",
+      "additionalNotes": "Serves as a gateway to other platforms"
+    },
+    {
+      "name": "ySense",
+      "url": "https://www.ysense.com",
+      "registrationRequirements": "16+, Global access, email verification",
+      "paymentMethods": "PayPal, Payoneer, Skrill, Gift Cards",
+      "minimumPayout": "$10.00",
+      "averagePayPerSurvey": "$0.50 - $2.00",
+      "surveyFrequency": "Daily",
+      "referralProgram": "Earn up to 30% of referrals’ earnings",
+      "specialFeatures": "Offers, tasks, and surveys",
+      "additionalNotes": "Low withdrawal threshold"
+    },
+    {
+      "name": "Panda Research",
+      "url": "https://www.pandaresearch.com",
+      "registrationRequirements": "18+, US residents, email verification",
+      "paymentMethods": "PayPal",
+      "minimumPayout": "$50.00",
+      "averagePayPerSurvey": "$1.00 - $3.00",
+      "surveyFrequency": "Weekly",
+      "referralProgram": "Earn $3 per referral",
+      "specialFeatures": "High survey pay rates",
+      "additionalNotes": "Longer surveys but better rewards"
+    }
+  ]
+};
+
+        const generateSiteCards = () => {
+            const siteList = document.getElementById('site-list');
+            data.sites.forEach((site, index) => {
+                const card = document.createElement('div');
+                card.className = 'site-card';
+
+                card.innerHTML = `
+                    <h3><a href="${site.url}" target="_blank">${site.name}</a></h3>
+                    <p>Payment Methods: ${site.paymentMethods}</p>
+                    <div class="dropdown">
+                        <label for="dropdown-${index}">More Info</label>
+                        <input type="checkbox" id="dropdown-${index}">
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><strong>Registration Requirements:</strong> ${site.registrationRequirements}</li>
+                                <li><strong>Minimum Payout:</strong> ${site.minimumPayout}</li>
+                                <li><strong>Average Pay Per Survey:</strong> ${site.averagePayPerSurvey}</li>
+                                <li><strong>Survey Frequency:</strong> ${site.surveyFrequency}</li>
+                                <li><strong>Referral Program:</strong> ${site.referralProgram}</li>
+                                <li><strong>Special Features:</strong> ${site.specialFeatures}</li>
+                                <li><strong>Additional Notes:</strong> ${site.additionalNotes}</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                siteList.appendChild(card);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', generateSiteCards);
+    </script>
+</body>
+</html>
